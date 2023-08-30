@@ -3,6 +3,7 @@
 
 from dataclasses import dataclass
 from random import randint
+from numpy import array
 from matplotlib import pyplot as plt
 
 
@@ -28,6 +29,8 @@ class TSP:
     ...
     """
 
+    CLR_POINT = "#eb343a"
+
     def __init__(self, points: list[tuple[int]], paths: list[Path] = None) -> None:
         """..."""
 
@@ -46,9 +49,38 @@ class TSP:
 
         return self.__paths
 
+    def __draw_points(self) -> None:
+        """..."""
+
+        self.__ax.scatter(
+            *array(self.__points).T,
+            zorder=1,
+            color=TSP.CLR_POINT,
+            label=f"Points ({len(self.__points)})",
+        )
+        for i, p in enumerate(self.__points):
+            plt.annotate(
+                i + 1,
+                p,
+                ha="center",
+                textcoords="offset points",
+                xytext=(0, 4),
+                fontsize=8,
+            )
+            plt.annotate(
+                f"({p[0]}; {p[1]})",
+                p,
+                ha="center",
+                va="top",
+                textcoords="offset points",
+                xytext=(0, -4),
+                fontsize=6,
+            )
+
     def __show(self) -> None:
         """..."""
 
+        self.__draw_points()
         plt.show()
 
 
