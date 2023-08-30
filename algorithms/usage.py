@@ -1,10 +1,11 @@
-from TSP import TSP
+from TSP import generate_problem, TSP
 
 
 def main() -> None:
     """..."""
 
-    pass
+    points = generate_problem(10)
+    print(points)
 
 
 if __name__ == "__main__":
