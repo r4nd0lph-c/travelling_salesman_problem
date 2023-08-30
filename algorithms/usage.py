@@ -1,15 +1,18 @@
-from TSP import generate_problem, Path, TSP
+# Usage Examples
+
+
+from TSP import generate_problem, TSP
+from ACO import ACO
 
 
 def main() -> None:
     """..."""
 
-    points = generate_problem(5)
-    paths = [
-        Path(indx=[0, 1, 2, 3, 4, 0], leng=128.0, name="Path #1"),
-        Path(indx=[0, 2, 4, 1, 3, 0], leng=256.0, name="Path #2"),
-    ]
-    tsp = TSP(points=points, paths=paths)
+    points = generate_problem(50)
+    aco = ACO(c=100, i=20, a=1.5, b=1.2, p=0.9, q=10)
+    path = aco.run(points=points, name="ACO #1")
+    paths = [path]
+    TSP(points=points, paths=paths)
 
 
 if __name__ == "__main__":
