@@ -6,6 +6,7 @@ from random import randint
 from numpy import array
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
+from matplotlib.backend_bases import PickEvent
 
 
 def generate_problem(count: int, canvas_size: int = 1000) -> list[tuple[int]]:
@@ -104,11 +105,39 @@ class TSP:
                 lines.append(l)
         return lines
 
+    def __draw_legend(self, lines: list[Line2D]) -> None:
+        """..."""
+
+        if lines:
+            self.__ax.set_title(
+                "Tip: Click on the legend line(s) to turn the path ON / OFF",
+                fontsize=10,
+                loc="left",
+            )
+            legend = self.__ax.legend()
+            lined = {}
+            for legline, origline in zip(legend.get_lines(), lines):
+                legline.set_picker(True)
+                lined[legline] = origline
+
+            def on_pick(event: PickEvent) -> None:
+                legline = event.artist
+                origline = lined[legline]
+                visible = not origline.get_visible()
+                origline.set_visible(visible)
+                legline.set_alpha(1.0 if visible else 0.2)
+                self.__fig.canvas.draw()
+
+            self.__fig.canvas.mpl_connect("pick_event", on_pick)
+        else:
+            self.__ax.legend()
+
     def __show(self) -> None:
         """..."""
 
         self.__draw_points()
-        self.__draw_paths()
+        lines = self.__draw_paths()
+        self.__draw_legend(lines=lines)
         plt.show()
 
 
