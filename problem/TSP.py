@@ -1,29 +1,18 @@
 # Travelling Salesman Problem
 
 
-from dataclasses import dataclass
 from random import randint
 from numpy import array
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.backend_bases import PickEvent
+from algorithms.utils.path import Path
 
 
 def generate_problem(count: int, canvas_size: int = 1000) -> list[tuple[int]]:
     """..."""
 
     return [(randint(0, canvas_size), randint(0, canvas_size)) for _ in range(count)]
-
-
-@dataclass
-class Path:
-    """
-    ...
-    """
-
-    indx: list[int]
-    leng: float
-    name: str
 
 
 class TSP:

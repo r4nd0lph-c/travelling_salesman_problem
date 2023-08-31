@@ -1,12 +1,13 @@
 # Ant Colony Optimization
 
 
-from math import sqrt, inf
+from math import inf
 from random import random, shuffle
-from TSP import Path
+from .utils.base import Base
+from .utils.path import Path
 
 
-class ACO:
+class ACO(Base):
     """
     ...
     """
@@ -20,21 +21,6 @@ class ACO:
         self.b = b
         self.p = p
         self.q = q
-
-    @staticmethod
-    def __euclidean_dist(a: tuple[int], b: tuple[int]) -> float:
-        """..."""
-
-        return sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
-
-    @staticmethod
-    def __calc_dist(dm: list[list[float]], indx_order: list[int]) -> float:
-        """..."""
-
-        dist = 0
-        for i in range(len(indx_order) - 1):
-            dist += dm[indx_order[i]][indx_order[i + 1]]
-        return dist
 
     @staticmethod
     def __select_i(selection: list[int]) -> int:
@@ -88,7 +74,7 @@ class ACO:
         """..."""
 
         l = len(points)
-        dm = [[ACO.__euclidean_dist(a, b) for b in points] for a in points]
+        dm = ACO._distance_matrix(points)
         pm = [[1 for _ in range(l)] for _ in range(l)]
         res_indx = []
         res_leng = inf
@@ -98,7 +84,7 @@ class ACO:
             for _ in range(self.ants):
                 indx = self.__create_indx(dm, pm)
                 tmp_indx.append(indx)
-                tmp_leng.append(ACO.__calc_dist(dm, indx))
+                tmp_leng.append(ACO._calculate_dist(dm, indx))
             self.update_pm(pm, tmp_indx, tmp_leng)
             best_leng = min(tmp_leng)
             if best_leng < res_leng:
