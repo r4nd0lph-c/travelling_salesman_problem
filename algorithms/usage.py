@@ -10,7 +10,7 @@ def main() -> None:
 
     points = generate_problem(50)
 
-    aco1 = ACO(c=100, i=20, a=1.5, b=1.2, p=0.6, q=10)
+    aco1 = ACO(ants=100, iter=20, a=1.5, b=1.2, p=0.6, q=10)
     path1 = aco1.run(points=points, name="ACO #1")
 
     paths = [path1]

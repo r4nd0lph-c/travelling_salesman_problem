@@ -11,11 +11,11 @@ class ACO:
     ...
     """
 
-    def __init__(self, c: int, i: int, a: float, b: float, p: float, q: float) -> None:
+    def __init__(self, ants: int, iter: int, a: float, b: float, p: float, q: float) -> None:
         """..."""
 
-        self.c = c
-        self.i = i
+        self.ants = ants
+        self.iter = iter
         self.a = a
         self.b = b
         self.p = p
@@ -69,9 +69,7 @@ class ACO:
         visited_indx.append(visited_indx[0])
         return visited_indx
 
-    def update_pm(
-        self, pm: list[list[float]], tmp_indx: list[list[int]], tmp_leng: list[float]
-    ) -> None:
+    def update_pm(self, pm: list[list[float]], tmp_indx: list[list[int]], tmp_leng: list[float]) -> None:
         """..."""
 
         l = len(pm)
@@ -79,7 +77,7 @@ class ACO:
             for j in range(i, l):
                 pm[i][j] *= 1 - self.p
                 pm[j][i] *= 1 - self.p
-        for i in range(self.c):
+        for i in range(self.ants):
             delta = self.q / tmp_leng[i]
             indx = tmp_indx[i]
             for j in range(l):
@@ -94,10 +92,10 @@ class ACO:
         pm = [[1 for _ in range(l)] for _ in range(l)]
         res_indx = []
         res_leng = inf
-        for _ in range(self.i):
+        for _ in range(self.iter):
             tmp_indx = []
             tmp_leng = []
-            for _ in range(self.c):
+            for _ in range(self.ants):
                 indx = self.__create_indx(dm, pm)
                 tmp_indx.append(indx)
                 tmp_leng.append(ACO.__calc_dist(dm, indx))
