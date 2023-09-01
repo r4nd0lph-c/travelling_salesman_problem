@@ -90,7 +90,6 @@ class ACO(Base):
             if best_leng < res_leng:
                 res_leng = best_leng
                 res_indx = tmp_indx[tmp_leng.index(best_leng)]
-
         return Path(indx=res_indx, leng=res_leng, name=name)
 
 
