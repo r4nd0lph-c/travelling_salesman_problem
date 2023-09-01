@@ -1,5 +1,6 @@
 # Usage Examples
 
+
 from time import time
 from TSP import generate_problem, TSP
 from algorithms.ACO import ACO
@@ -10,7 +11,7 @@ from algorithms.SA import SA
 def main() -> None:
     """..."""
 
-    points = generate_problem(50)
+    points = generate_problem(25)
     paths = []
 
     ts = time()
@@ -18,10 +19,10 @@ def main() -> None:
     paths.append(aco.run(points=points, name="ACO"))
     print(f"ACO time: {time()-ts}")
 
-    # ts = time()
-    # ga = GA()
-    # paths.append(ga.run(points=points, name="GA"))
-    # print(f"GA time: {time()-ts}")
+    ts = time()
+    ga = GA(population=1500, iter=40, s=0.2, m=0.5)
+    paths.append(ga.run(points=points, name="GA"))
+    print(f"GA time: {time()-ts}")
 
     # ts = time()
     # sa = SA()
