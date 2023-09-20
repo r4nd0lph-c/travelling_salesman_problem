@@ -9,7 +9,7 @@ from algorithms.SA import SA
 
 
 def main() -> None:
-    """..."""
+    """Tests performance of algorithms."""
 
     points = generate_problem(20)
     paths = []

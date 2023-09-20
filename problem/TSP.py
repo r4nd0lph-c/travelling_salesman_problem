@@ -10,14 +10,14 @@ from algorithms.utils.path import Path
 
 
 def generate_problem(count: int, canvas_size: int = 1000) -> list[tuple[int]]:
-    """..."""
+    """Generates a list of random 2D points."""
 
     return [(randint(0, canvas_size), randint(0, canvas_size)) for _ in range(count)]
 
 
 class TSP:
     """
-    ...
+    Allows to visualize the Traveling Salesman Problem and paths.
     """
 
     CLR_POINT = "#eb343a"
@@ -32,7 +32,7 @@ class TSP:
     ]
 
     def __init__(self, points: list[tuple[int]], paths: list[Path] = None) -> None:
-        """..."""
+        """Initializes the problem, outputs its data using graphics."""
 
         self.__points = points
         self.__paths = paths
@@ -40,17 +40,17 @@ class TSP:
         self.__show()
 
     def get_points(self) -> list[tuple[int]]:
-        """..."""
+        """Getter to get the list of 2D points of the initialized problem."""
 
         return self.__points
 
     def get_paths(self) -> list[Path]:
-        """..."""
+        """Getter to get the list of paths of the initialized problem."""
 
         return self.__paths
 
     def __draw_points(self) -> None:
-        """..."""
+        """Draws 2D points and their coordinates on the canvas."""
 
         self.__ax.scatter(
             *array(self.__points).T,
@@ -78,7 +78,7 @@ class TSP:
             )
 
     def __draw_paths(self) -> list[Line2D]:
-        """..."""
+        """Draws all passed paths on the canvas."""
 
         lines = []
         if self.__paths:
@@ -95,7 +95,7 @@ class TSP:
         return lines
 
     def __draw_legend(self, lines: list[Line2D]) -> None:
-        """..."""
+        """Draws the legend on the canvas."""
 
         if lines:
             self.__ax.set_title(
@@ -122,7 +122,7 @@ class TSP:
             self.__ax.legend()
 
     def __show(self) -> None:
-        """..."""
+        """Shows the canvas with the drawn data."""
 
         self.__draw_points()
         lines = self.__draw_paths()
