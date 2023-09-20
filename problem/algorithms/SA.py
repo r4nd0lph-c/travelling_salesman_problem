@@ -10,18 +10,28 @@ from .utils.path import Path
 
 class SA(Base):
     """
-    ...
+    Simulated annealing is a probabilistic technique for approximating the global optimum of a given function.
+    Specifically, it is a metaheuristic to approximate global optimization in a large search space for an optimization problem.\n
+    -----
+    `iter: int` THE NUMBER OF ITERATIONS\n
+    The maximum number of iterations of the algorithm.\n
+    -----
+    `t: int` INITIAL TEMPERATURE\n
+    The initial temperature for the search decreases with the progress of the search.\n
+    -----
+    `g: float` CHANGE COEFFICIENT\n
+    The coefficient affecting temperature change.\n
     """
 
     def __init__(self, iter: int, t: int, g: float) -> None:
-        """..."""
+        """Initializes the hyperparameters for the algorithm."""
 
         self.iter = iter
         self.t = t
         self.g = g
 
     def __is_acceptable(self, prb_leng: float, tmp_leng: float) -> bool:
-        """..."""
+        """Checks if the state transition will execute."""
 
         prob = min(1, exp(-(prb_leng - tmp_leng) / self.t))
         if prob > random():
@@ -29,7 +39,7 @@ class SA(Base):
         return False
 
     def run(self, points: list[tuple[int]], name: str = None) -> Path:
-        """..."""
+        """Runs the algorithm for the given 2D points."""
 
         l = len(points)
         dm = SA._distance_matrix(points)

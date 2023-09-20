@@ -8,11 +8,24 @@ from .utils.path import Path
 
 class GA(Base):
     """
-    ...
+    Genetic algorithm is a metaheuristic inspired by the process of natural selection
+    that belongs to the larger class of evolutionary algorithms.\n
+    -----
+     `population: int` THE NUMBER OF INDIVIDUALS\n
+    The total number of individuals involved in one iteration.\n
+    -----
+     `iter: int` THE NUMBER OF ITERATIONS\n
+    The maximum number of iterations of the algorithm.\n
+    -----
+     `s: float` SELECTION COEFFICIENT\n
+    Determines how many of the best individuals will make it to the next population.\n
+    -----
+     `m: float` MUTATION COEFFICIENT\n
+    Determines how often individuals in a population mutate.\n
     """
 
     def __init__(self, population: int, iter: int, s: float, m: float) -> None:
-        """..."""
+        """Initializes the hyperparameters for the algorithm."""
 
         self.population = population
         self.iter = iter
@@ -21,12 +34,12 @@ class GA(Base):
 
     @staticmethod
     def __fitness_sort(dm: list[list[float]], individuals: list[list[int]]) -> None:
-        """..."""
+        """Sorts the individuals of a given population by fit."""
 
         individuals.sort(key=lambda i: GA._calculate_dist(dm, i))
 
     def __initialization(self, l: int) -> list[list[int]]:
-        """..."""
+        """Initializes the first population of individuals."""
 
         base = list(range(l))
         individuals = []
@@ -36,12 +49,12 @@ class GA(Base):
         return individuals
 
     def __selection(self, individuals: list[list[int]]) -> None:
-        """..."""
+        """Selects the best individuals of a given population."""
 
         del individuals[int(self.population * self.s) :]
 
     def __crossover(self, individuals: list[list[int]]) -> None:
-        """..."""
+        """Crossbreeding some individuals of a given population."""
 
         childs = []
         w_size = len(individuals[0]) // 2
@@ -55,7 +68,7 @@ class GA(Base):
         individuals += childs
 
     def __mutation(self, individuals: list[list[int]]) -> None:
-        """..."""
+        """Mutates some individuals of a given population."""
 
         sampling = list(range(1, len(individuals[0]) - 1))
         for item in individuals:
@@ -64,7 +77,7 @@ class GA(Base):
                 item[i], item[j] = item[j], item[i]
 
     def run(self, points: list[tuple[int]], name: str = None) -> Path:
-        """..."""
+        """Runs the algorithm for the given 2D points."""
 
         l = len(points)
         dm = GA._distance_matrix(points)
