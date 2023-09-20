@@ -78,7 +78,7 @@ class TSP:
             )
 
     def __draw_paths(self) -> list[Line2D]:
-        """Draws all passed paths on the canvas."""
+        """Draws all given paths on the canvas."""
 
         lines = []
         if self.__paths:
