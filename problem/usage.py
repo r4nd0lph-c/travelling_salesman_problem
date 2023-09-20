@@ -11,7 +11,7 @@ from algorithms.SA import SA
 def main() -> None:
     """..."""
 
-    points = generate_problem(25)
+    points = generate_problem(20)
     paths = []
 
     ts = time()
@@ -24,10 +24,10 @@ def main() -> None:
     paths.append(ga.run(points=points, name="GA"))
     print(f"GA time: {time()-ts}")
 
-    # ts = time()
-    # sa = SA()
-    # paths.append(sa.run(points=points, name="SA"))
-    # print(f"SA time: {time()-ts}")
+    ts = time()
+    sa = SA(iter=20000, t=100, g=0.6)
+    paths.append(sa.run(points=points, name="SA"))
+    print(f"SA time: {time()-ts}")
 
     TSP(points=points, paths=paths)
 
