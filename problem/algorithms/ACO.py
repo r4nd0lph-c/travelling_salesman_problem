@@ -9,11 +9,35 @@ from .utils.path import Path
 
 class ACO(Base):
     """
-    ...
+    Ant Colony Optimization algorithm is introduced based on the foraging behavior of an ant
+    for seeking a path between their colony and source food.\n
+    -----
+    `ants: int` THE NUMBER OF ANTS\n
+    The total number of agents (ants) involved in one iteration.\n
+    -----
+    `iter: int` THE NUMBER OF ITERATIONS\n
+    The maximum number of iterations of the algorithm.\n
+    -----
+    `a: float` INFORMATION ELICITATION FACTOR\n
+    The information elicitation factor α, which represents the relative importance of the pheromone,
+    reflects the importance of the accumulation of the pheromone with regard to the ants' path selection.\n
+    -----
+    `b: float` EXPECTED HEURISTIC FACTOR\n
+    The expected heuristic factor β, which represents the relative importance of the visibility,
+    reflects the importance of the heuristic information with regard to the ants' path selection.\n
+    -----
+    `p: float` PHEROMONE EVAPORATION COEFFICIENT\n
+    The pheromone evaporation coefficient ρ, which represents the degree of pheromone evaporation,
+    reflects the degree of mutual influence among ants. Generally, the value of  is [0, 1],
+    which prevents the infinite accumulation of pheromone effectively.\n
+    -----
+    `q: float` PHEROMONE INTENSITY\n
+    The pheromone intensity Q, which represents the total pheromone,
+    affects the convergence speed of the alghoritm to a certain extent.\n
     """
 
     def __init__(self, ants: int, iter: int, a: float, b: float, p: float, q: float) -> None:
-        """..."""
+        """Initializes the hyperparameters for the algorithm."""
 
         self.ants = ants
         self.iter = iter
@@ -24,7 +48,7 @@ class ACO(Base):
 
     @staticmethod
     def __select_i(selection: list[int]) -> int:
-        """..."""
+        """Selects a random index of the next 2D point."""
 
         sum_num = sum(selection)
         if sum_num == 0:
@@ -37,7 +61,7 @@ class ACO(Base):
                 return i
 
     def __create_indx(self, dm: list[list[float]], pm: list[list[float]]) -> list[int]:
-        """..."""
+        """Creates a new ordering of 2D point indices based on the distance and pheromone."""
 
         l = len(dm)
         unvisited_indx = list(range(l))
@@ -56,7 +80,7 @@ class ACO(Base):
         return visited_indx
 
     def update_pm(self, pm: list[list[float]], tmp_indx: list[list[int]], tmp_leng: list[float]) -> None:
-        """..."""
+        """Updates the pheromone matrix."""
 
         l = len(pm)
         for i in range(l):
@@ -71,7 +95,7 @@ class ACO(Base):
                 pm[indx[j + 1]][indx[j]] += delta
 
     def run(self, points: list[tuple[int]], name: str = None) -> Path:
-        """..."""
+        """Runs the algorithm for the given 2D points."""
 
         l = len(points)
         dm = ACO._distance_matrix(points)
